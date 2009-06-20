@@ -4,24 +4,26 @@ module NavigationTags
   
   class NavTagError < StandardError; end
   
-  desc %q{Render a navigation menu. Walks down the directory tree, expanding the tree up to the current page.
-
+  desc %{
+    Render a navigation menu. Walks down the directory tree, expanding the tree up to the current page.
+    
     *Usage:*
-    <pre><code><r:nav [id="subnav"] [root="/products"] [include_root="true"] [depth="2"] [expand_all="true"] [only="regexp"] except="\.(css|js|xml)^"/></code></pre> 
+    <pre><code><r:nav [id="subnav"] [root="/products"] [include_root="true"] [depth="2"] [expand_all="true"]
+    [only="^/(articles|notices)"] [except="\.(css|js|xml)/*$"] /></code></pre> 
     *Attributes:*
     
-    root: defaults to "/", where to start building the navigation from, you can i.e. use "/products" to build a subnav
-    include_root: defaults to false, set to true to include the root page (i.e. Home)
-    ids_for_lis: defaults to false, enable this to give each li an id (it's slug prefixed with nav_)
-    ids_for_links: defaults to false, enable this to give each link an id (it's slug prefixed with nav_)
+    * @root@ defaults to "/", where to start building the navigation from, you can i.e. use "/products" to build a subnav
+    * @include_root@ defaults to false, set to true to include the root page (i.e. Home)
+    * @ids_for_lis@ defaults to false, enable this to give each li an id (it's slug prefixed with nav_)
+    * @ids_for_links@ defaults to false, enable this to give each link an id (it's slug prefixed with nav_)
     
-    depth: defaults to 1, which means no sub-ul's, set to 2 or more for a nested list
-    expand_all: defaults to false, enable this to have all li's create sub-ul's of their children, i.o. only the currently active li
+    * @depth@ defaults to 1, which means no sub-ul's, set to 2 or more for a nested list
+    * @expand_all@ defaults to false, enable this to have all li's create sub-ul's of their children, i.o. only the currently active li
     
-    only: a string or regular expresssion. only pages whose urls match this are included
-    except: a string or regular expresssion. pages whose urls match this are not shown. except will override only. use to eliminate non-content file-types
+    * @only@ a string or regular expresssion. only pages whose urls match this are included
+    * @except@ a string or regular expresssion. pages whose urls match this are not shown. except will override only. use to eliminate non-content file-types
     
-    id, class,..: go as html attributes of the outer ul
+    * @id@, @class@,..: go as html attributes of the outer ul
   }
     
   tag "nav" do |tag|
@@ -92,7 +94,7 @@ module NavigationTags
   end
   
   
-  def not_allowed? child
+  def not_allowed? child_page
     (@only and !child_page.url.match(@only)) or
     (@except and child_page.url.match(@except)) or
     child_page.part("no-map") or child_page.virtual? or !child_page.published? or child_page.class_name.eql? "FileNotFoundPage"    
