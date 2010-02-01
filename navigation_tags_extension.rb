@@ -9,5 +9,6 @@ class NavigationTagsExtension < Radiant::Extension
 
   def activate
     Page.send :include, NavigationTags
+    admin.pages.edit.add :layout_row, "admin/pages/navigation"
   end
 end
