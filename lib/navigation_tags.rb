@@ -26,8 +26,10 @@ module NavigationTags
     * @id@, @class@,..: go as html attributes of the outer ul
   }
     
-  tag "nav" do |tag|
-    root = Page.find_by_url(root_url = tag.attr.delete('root') || "/")
+  tag "nav" do |tag|    
+    root_url = tag.attr.delete('root') || "/"
+    root_url = root_url.to_s
+    root = Page.find_by_url(root_url) || Page.find_by_url(root_url + I18n.locale.to_s)
     
     raise NavTagError, "No page found at \"#{root_url}\" to build navigation from." if root.class_name.eql?('FileNotFoundPage')
     
