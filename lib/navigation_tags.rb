@@ -66,7 +66,8 @@ module NavigationTags
   end
   
   tag "sub-nav" do |tag|
-    current_page = tag.locals.page
+    # current_page = tag.locals.page
+    current_page = tag.globals.page
     child_page = tag.attr[:page]
     depth = tag.attr[:depth]
     return if child_page.part("no-map") or !child_page.in_navigation? or child_page.virtual? or !child_page.published? or child_page.class_name.eql? "FileNotFoundPage"
