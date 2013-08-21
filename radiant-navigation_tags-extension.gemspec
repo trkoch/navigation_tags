@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["arthur@gunn.co.nz"]
   s.homepage    = "https://github.com/gunn/navigation_tags"
   s.description = "Adds navigation tags to Radiant"
-  s.summary     = "Makes building navigations much easier."
+  s.summary     = "Helps build navigation sections based on your page structure."
 
   # Define gem dependencies here.
   # Don't include a dependency on radiant itself: it causes problems when radiant is in vendor/radiant.
